@@ -1,0 +1,86 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Operaciones con Matrices</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; background-color: #f4f4f4; }
+        table { border-collapse: collapse; margin: 10px 0; }
+        td, th { border: 1px solid #333; padding: 5px 10px; text-align: center; }
+        h2 { color: #333366; }
+        .resultado { background-color: #ffffff; padding: 15px; border-radius: 10px; margin-top: 20px; }
+        input { padding: 5px; margin: 5px; }
+        .simetria { font-weight: bold; color: green; }
+    </style>
+</head>
+<body>
+    <h1>Operaciones con Matrices</h1>
+    <form method="post">
+        <label>Filas de A: <input type="number" name="m1" required></label>
+        <label>Columnas de A: <input type="number" name="n1" required></label><br>
+        <label>Filas de B: <input type="number" name="m2" required></label>
+        <label>Columnas de B: <input type="number" name="n2" required></label><br>
+        <input type="submit" value="Procesar">
+    </form>
+
+    {% if resultado %}
+        <div class="resultado">
+            <h2>Matriz A</h2>
+            <table>
+                {% for fila in resultado.A %}
+                <tr>{% for val in fila %}<td>{{ val }}</td>{% endfor %}</tr>
+                {% endfor %}
+            </table>
+
+            <h2>Matriz B</h2>
+            <table>
+                {% for fila in resultado.B %}
+                <tr>{% for val in fila %}<td>{{ val }}</td>{% endfor %}</tr>
+                {% endfor %}
+            </table>
+
+            {% if resultado.suma is defined %}
+                <h2>3A + 4B</h2>
+                <table>
+                    {% for fila in resultado.suma %}
+                    <tr>{% for val in fila %}<td>{{ "%.2f"|format(val) }}</td>{% endfor %}</tr>
+                    {% endfor %}
+                </table>
+            {% endif %}
+
+            {% if resultado.resta is defined %}
+                <h2>A - √B</h2>
+                <table>
+                    {% for fila in resultado.resta %}
+                    <tr>{% for val in fila %}<td>{{ "%.2f"|format(val) }}</td>{% endfor %}</tr>
+                    {% endfor %}
+                </table>
+            {% endif %}
+
+            {% if resultado.multiplicacion is defined %}
+                <h2>2A * log₁₀(B)</h2>
+                <table>
+                    {% for fila in resultado.multiplicacion %}
+                    <tr>{% for val in fila %}<td>{{ "%.2f"|format(val) }}</td>{% endfor %}</tr>
+                    {% endfor %}
+                </table>
+            {% endif %}
+
+            {% if resultado.cubo_sqrt is defined %}
+                <h2>A³ * √B</h2>
+                <table>
+                    {% for fila in resultado.cubo_sqrt %}
+                    <tr>{% for val in fila %}<td>{{ "%.2f"|format(val) }}</td>{% endfor %}</tr>
+                    {% endfor %}
+                </table>
+            {% endif %}
+
+            {% if resultado.sim_A is defined %}
+                <p class="simetria">¿Matriz A es simétrica? {{ 'Sí' if resultado.sim_A else 'No' }}</p>
+                <p class="simetria">¿Matriz B es simétrica? {{ 'Sí' if resultado.sim_B else 'No' }}</p>
+            {% endif %}
+        </div>
+    {% endif %}
+</body>
+</html>
